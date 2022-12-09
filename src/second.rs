@@ -76,5 +76,9 @@ fn init_score() -> HashMap<String, Value> {
         }
     }"#;
 
-    serde_json::from_str(matrix).unwrap()
+    let from_str = serde_json::from_str(matrix);
+    match from_str {
+        Ok(m) => m,
+        Err(_) => panic!("cannot initialize score matrix from {matrix}" ),
+    }
 }
