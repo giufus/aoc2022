@@ -30,7 +30,7 @@ fn main() {
         match adv_day {
             Advent::First => first::run(adv_input),
             Advent::Second => second::run(adv_input),
-            Advent::Third => todo!(),
+            Advent::Third => third::run(adv_input),
             Advent::Fourth => todo!(),
             Advent::Fifth => todo!(),
             Advent::Sixth => todo!(),
@@ -56,8 +56,9 @@ fn main() {
         }
 
     } else {
-        first::run("src/inputs/first_input.json");
-        second::run("src/inputs/second_input.json");
+        first::run(Advent::First.get_input());
+        second::run(Advent::Second.get_input());
+        third::run(Advent::Third.get_input());
     }
     
 }
@@ -130,7 +131,7 @@ impl Advent {
         match *self {
             Advent::First => "src/inputs/first_input.json",
             Advent::Second => "src/inputs/second_input.json",
-            Advent::Third => todo!(),
+            Advent::Third => "src/inputs/third_input.json",
             Advent::Fourth => todo!(),
             Advent::Fifth => todo!(),
             Advent::Sixth => todo!(),
