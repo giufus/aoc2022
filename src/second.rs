@@ -72,51 +72,44 @@ m
 e
 */
 
-use serde_json::{Result, Value};
+use serde_json::{Value};
 use std::collections::HashMap;
-use std::path::Path;
-use std::{any, fs};
+use crate::util;
 
 pub fn run(path: &str) {
     let matrix = init_score();
     let mut acc = 0;
     let mut second_acc = 0;
-    match Path::exists(Path::new(path)) {
-        true => {
-            let file_content_as_string = fs::read_to_string(path);
-            if let Ok(s) = file_content_as_string {
-                for row in s.split("\n") {
-                    let row_split = row.split(" ").collect::<Vec<&str>>();
-                    let left = *(row_split.get(0).unwrap());
-                    let right = *(row_split.get(1).unwrap());
-                    // println!("{left} and {right}");
-                    let me = matrix.get(left).unwrap().as_object().unwrap();
-                    // println!("me is {me:?}");
-                    let part_score: i64 = me.get(right).unwrap().as_i64().unwrap();
-                    // println!("get is {get}");
-                    acc += part_score;
-                    match right {
-                        "X" => acc += 1,
-                        "Y" => acc += 2,
-                        "Z" => acc += 3,
-                        _ => {}
-                    }
-
-                    let trick = trick(&left, &right);
-                    let new_part_score: i64 = me.get(trick.as_str()).unwrap().as_i64().unwrap();
-                    // println!("get is {get}");
-                    second_acc += new_part_score;
-                    match trick.as_str() {
-                        "X" => second_acc += 1,
-                        "Y" => second_acc += 2,
-                        "Z" => second_acc += 3,
-                        _ => {}
-                    }
-                }
-            }
+    let file_content_as_string = util::get_input_as_string(path);
+    for row in file_content_as_string.split("\n") {
+        let row_split = row.split(" ").collect::<Vec<&str>>();
+        let left = *(row_split.get(0).unwrap());
+        let right = *(row_split.get(1).unwrap());
+        // println!("{left} and {right}");
+        let me = matrix.get(left).unwrap().as_object().unwrap();
+        // println!("me is {me:?}");
+        let part_score: i64 = me.get(right).unwrap().as_i64().unwrap();
+        // println!("get is {get}");
+        acc += part_score;
+        match right {
+            "X" => acc += 1,
+            "Y" => acc += 2,
+            "Z" => acc += 3,
+            _ => {}
         }
-        false => println!("Path {} does not exists", path),
+
+        let trick = trick(&left, &right);
+        let new_part_score: i64 = me.get(trick.as_str()).unwrap().as_i64().unwrap();
+        // println!("get is {get}");
+        second_acc += new_part_score;
+        match trick.as_str() {
+            "X" => second_acc += 1,
+            "Y" => second_acc += 2,
+            "Z" => second_acc += 3,
+            _ => {}
+        }
     }
+    
 
     println!("2nd: FINAL SCORE IS {acc}");
     println!("2nd: TRICKED FINAL SCORE IS {second_acc}");
