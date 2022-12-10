@@ -112,5 +112,6 @@ pub fn run_v2(path: &str) {
 
     list.insert(acc, "last".to_string());
 
-    println!("TOP IS {:?}", list.into_iter().rev().next().unwrap());
+    println!("1st_v2: TOP IS {:?}", list.into_iter().rev().next().unwrap());
+    //list.into_iter().rev().next().unwrap().0
 }

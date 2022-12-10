@@ -30,7 +30,7 @@ fn main() {
         match adv_day {
             Advent::First => {
                 first::run(adv_input);
-                first::run_v2(adv_input)
+                first::run_v2(adv_input);
             },
             Advent::Second => second::run(adv_input),
             Advent::Third => third::run(adv_input),
