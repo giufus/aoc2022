@@ -63,6 +63,9 @@ You can also [Share] this puzzle.
 
 use crate::util;
 
+use std::{fs::File, io::{BufReader, BufRead}};
+use sorted_list::SortedList;
+
 
 pub fn run(path: &str) {
 
@@ -87,4 +90,27 @@ pub fn run(path: &str) {
         totals[0..3].to_vec(),
         top_three_sum
     );
+}
+
+
+pub fn run_v2(path: &str) {
+    let mut list: SortedList<i32, _> = SortedList::new();
+
+    let file = File::open(path).unwrap();
+    let reader = BufReader::new(file);
+
+    let mut acc:i32 = 0;
+    for line in reader.lines() {
+        let row = line.unwrap_or(String::new());
+        if !row.is_empty() {
+            acc +=  row.parse::<i32>().unwrap();
+        } else {
+            list.insert(acc, row);
+            acc  = 0;
+        }
+    }
+
+    list.insert(acc, "last".to_string());
+
+    println!("TOP IS {:?}", list.into_iter().rev().next().unwrap());
 }

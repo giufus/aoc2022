@@ -28,7 +28,10 @@ fn main() {
         let adv_input = adv_day.get_input();
 
         match adv_day {
-            Advent::First => first::run(adv_input),
+            Advent::First => {
+                first::run(adv_input);
+                first::run_v2(adv_input)
+            },
             Advent::Second => second::run(adv_input),
             Advent::Third => third::run(adv_input),
             Advent::Fourth => todo!(),
@@ -57,6 +60,7 @@ fn main() {
 
     } else {
         first::run(Advent::First.get_input());
+        first::run_v2(Advent::First.get_input());
         second::run(Advent::Second.get_input());
         third::run(Advent::Third.get_input());
     }
