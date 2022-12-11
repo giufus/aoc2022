@@ -17,7 +17,23 @@ pub fn run(path: &str) {
     let file_content_as_string = util::get_input_as_string(path);
     let mut tot: u32 = 0;
     let split = file_content_as_string.split("\n");
-    for s in split {
+
+    let mut groups: Vec<Vec<&str>> = vec![];
+    let mut group: Vec<&str> = vec![];
+    let mut badge_priority = 0;
+
+    for (index, s) in split.enumerate() {
+        
+        if index == 0 || index%3 != 0 {
+            group.push(s);
+        } else {
+            groups.push(group.clone());
+            group.clear();
+            group.push(s);
+        }
+
+
+
         let s_len = s.len();
         let first_half  = &s[0..s_len/2];
         let second_half = &s[s_len/2..];
@@ -39,6 +55,28 @@ pub fn run(path: &str) {
 
     println!("3rd: TOT PRIORITY IS {:?}", tot);
 
+    // println!("# GROUPS = {:?}", &groups);
+    for (i,g) in groups.iter().enumerate() {
+        // println!("{i} ITERATION");
+
+        let g0 = g.get(0).unwrap().to_owned();
+        
+        // println!("G0 is {g0}");
+
+        for ss in g.iter().skip(1) {
+            let found = ss.chars().find(|c| g0.contains(*c));
+            if let Some(f) = found  {
+                badge_priority += get_priority_v2(&f);
+
+                // println!("FOUND COMMON: {f} in {ss}");
+                // println!("PARTIAL IS: {badge_priority}");
+
+                break;
+            }
+        }
+    }
+
+    println!("3rd: BADGE TOT IS {badge_priority}");
 }
 
 // it does not work, use the other
