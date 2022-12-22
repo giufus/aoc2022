@@ -1,5 +1,6 @@
 mod first;
 mod fourth;
+mod fifth;
 mod second;
 mod third;
 mod util;
@@ -36,7 +37,7 @@ fn main() {
             Advent::Second => second::run(adv_input),
             Advent::Third => third::run(adv_input),
             Advent::Fourth => fourth::run(adv_input),
-            Advent::Fifth => todo!(),
+            Advent::Fifth => fifth::run(adv_input),
             Advent::Sixth => todo!(),
             Advent::Seventh => todo!(),
             Advent::Eighth => todo!(),
@@ -64,6 +65,7 @@ fn main() {
         second::run(Advent::Second.get_input());
         third::run(Advent::Third.get_input());
         fourth::run(Advent::Fourth.get_input());
+        fifth::run(Advent::Fifth.get_input());
     }
 }
 
@@ -133,7 +135,7 @@ impl Advent {
             Advent::Second => "src/inputs/second_input.json",
             Advent::Third => "src/inputs/third_input.json",
             Advent::Fourth => "src/inputs/fourth_input.json",
-            Advent::Fifth => todo!(),
+            Advent::Fifth => "src/inputs/fifth_input.json",
             Advent::Sixth => todo!(),
             Advent::Seventh => todo!(),
             Advent::Eighth => todo!(),

@@ -15,15 +15,19 @@ use crate::util::{get_input_as_stream, get_input_as_string};
 pub fn run(path: &str) {
     let get_input_as_stream = get_input_as_stream(path);
 
-    let inclusives: usize  = get_input_as_stream.lines()
+    let inclusives: (Vec<_>, Vec<_>)  = get_input_as_stream.lines()
         .map(|f| f.unwrap_or(String::from("0-0,99-99")))
         .map(|f| f.split(",").zip(f.split(",").skip(1))
                           .map(|g|(Assignment::from(g.0), Assignment::from(g.1))).next())
         .map(|f| overlaps(f.unwrap()))
-        .filter(|f| true.eq(f))
-        .count();
+        .partition(|f| true.eq(f));
 
-        println!("4th: Included assignments are {inclusives}")
+        l// et sizes: String = format!("{}+{}={}", inclusives.0.len(), inclusives.1.len(), inclusives.0.len() + inclusives.1.len());
+    
+        //.filter(|f| true.eq(f))
+        //.count();
+
+        println!("4th: assignments with an overlap are {}, without are {}, sum is {}", inclusives.0.len(), inclusives.1.len(), inclusives.0.len() + inclusives.1.len())
 }
 
 
