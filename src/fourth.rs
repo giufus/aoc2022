@@ -22,7 +22,7 @@ pub fn run(path: &str) {
         .map(|f| overlaps(f.unwrap()))
         .partition(|f| true.eq(f));
 
-        l// et sizes: String = format!("{}+{}={}", inclusives.0.len(), inclusives.1.len(), inclusives.0.len() + inclusives.1.len());
+        // et sizes: String = format!("{}+{}={}", inclusives.0.len(), inclusives.1.len(), inclusives.0.len() + inclusives.1.len());
     
         //.filter(|f| true.eq(f))
         //.count();
