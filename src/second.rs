@@ -72,9 +72,9 @@ m
 e
 */
 
-use serde_json::{Value};
-use std::collections::HashMap;
 use crate::util;
+use serde_json::Value;
+use std::collections::HashMap;
 
 pub fn run(path: &str) {
     let matrix = init_score();
@@ -109,7 +109,6 @@ pub fn run(path: &str) {
             _ => {}
         }
     }
-    
 
     println!("2nd: FINAL SCORE IS {acc}");
     println!("2nd: TRICKED FINAL SCORE IS {second_acc}");
@@ -137,44 +136,36 @@ fn init_score() -> HashMap<String, Value> {
     let from_str = serde_json::from_str(matrix);
     match from_str {
         Ok(m) => m,
-        Err(_) => panic!("cannot initialize score matrix from {matrix}" ),
+        Err(_) => panic!("cannot initialize score matrix from {matrix}"),
     }
 }
 
 /**
- * get a trick value for right 
+ * get a trick value for right
  */
 fn trick(oppo: &str, me: &str) -> String {
-
     match oppo {
-        "A" => {
-            match me {
-                "X" => "Z",
-                "Y" => "X",
-                "Z" => "Y",
-                _ => me,
-            }
+        "A" => match me {
+            "X" => "Z",
+            "Y" => "X",
+            "Z" => "Y",
+            _ => me,
         },
-        "B" => {
-            match me {
-                "X" => "X",
-                "Y" => "Y",
-                "Z" => "Z",
-                _ => me,
-            }
+        "B" => match me {
+            "X" => "X",
+            "Y" => "Y",
+            "Z" => "Z",
+            _ => me,
         },
-        "C" => {
-            match me {
-                "X" => "Y",
-                "Y" => "Z",
-                "Z" => "X",
-                _ => me,
-            }
+        "C" => match me {
+            "X" => "Y",
+            "Y" => "Z",
+            "Z" => "X",
+            _ => me,
         },
-        _  => {
-            match me {
-                _ => me,
-            }
+        _ => match me {
+            _ => me,
         },
-    }.to_string()
+    }
+    .to_string()
 }

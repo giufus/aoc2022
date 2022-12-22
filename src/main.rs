@@ -1,4 +1,5 @@
 mod first;
+mod fourth;
 mod second;
 mod third;
 mod util;
@@ -9,7 +10,7 @@ fn main() {
     println!("Advento of Code 2022");
 
     let args: Vec<String> = env::args().collect();
-    
+
     let first_arg = args.get(1);
     let day: i8 = match first_arg {
         Some(n) => {
@@ -19,7 +20,7 @@ fn main() {
                 Ok(_) => panic!("Max number is 25!"),
                 Err(_) => 0,
             }
-        },
+        }
         None => 0,
     };
 
@@ -31,10 +32,10 @@ fn main() {
             Advent::First => {
                 first::run(adv_input);
                 first::run_v2(adv_input);
-            },
+            }
             Advent::Second => second::run(adv_input),
             Advent::Third => third::run(adv_input),
-            Advent::Fourth => todo!(),
+            Advent::Fourth => fourth::run(adv_input),
             Advent::Fifth => todo!(),
             Advent::Sixth => todo!(),
             Advent::Seventh => todo!(),
@@ -57,16 +58,14 @@ fn main() {
             Advent::TwentyFourth => todo!(),
             Advent::TwentyFifth => todo!(),
         }
-
     } else {
         first::run(Advent::First.get_input());
         first::run_v2(Advent::First.get_input());
         second::run(Advent::Second.get_input());
         third::run(Advent::Third.get_input());
+        fourth::run(Advent::Fourth.get_input());
     }
-    
 }
-
 
 enum Advent {
     First = 1,
@@ -97,46 +96,43 @@ enum Advent {
 }
 
 impl Advent {
-
     fn get_enum_by_number(num: i8) -> Self {
-
         match num {
-            1 => Advent::First ,
-            2 => Advent::Second ,
-            3 => Advent::Third ,
-            4 => Advent::Fourth ,
-            5 => Advent::Fifth ,
-            6 => Advent::Sixth ,
-            7 => Advent::Seventh ,
-            8 => Advent::Eighth ,
-            9 => Advent::Ninth ,
-            10 => Advent::Tenth ,
-            11 => Advent::Eleventh ,
-            12 => Advent::Twelfth ,
-            13 => Advent::Thirteenth ,
-            14 => Advent::Fourteenth ,
-            15 => Advent::Fifteenth ,
-            16 => Advent::Sixteenth ,
-            17 => Advent::Seventeenth ,
-            18 => Advent::Eighteenth ,
-            19 => Advent::Nineteenth ,
-            20 => Advent::Twentieth ,
-            21 => Advent::TwentyFirst ,
-            22 => Advent::TwentySecond ,
-            23 => Advent::TwentyThird ,
-            24 => Advent::TwentyFourth ,
-            25 => Advent::TwentyFifth ,
+            1 => Advent::First,
+            2 => Advent::Second,
+            3 => Advent::Third,
+            4 => Advent::Fourth,
+            5 => Advent::Fifth,
+            6 => Advent::Sixth,
+            7 => Advent::Seventh,
+            8 => Advent::Eighth,
+            9 => Advent::Ninth,
+            10 => Advent::Tenth,
+            11 => Advent::Eleventh,
+            12 => Advent::Twelfth,
+            13 => Advent::Thirteenth,
+            14 => Advent::Fourteenth,
+            15 => Advent::Fifteenth,
+            16 => Advent::Sixteenth,
+            17 => Advent::Seventeenth,
+            18 => Advent::Eighteenth,
+            19 => Advent::Nineteenth,
+            20 => Advent::Twentieth,
+            21 => Advent::TwentyFirst,
+            22 => Advent::TwentySecond,
+            23 => Advent::TwentyThird,
+            24 => Advent::TwentyFourth,
+            25 => Advent::TwentyFifth,
             _ => panic!("Max number is 25!"),
         }
-    } 
+    }
 
     fn get_input(&self) -> &str {
-        
         match *self {
             Advent::First => "src/inputs/first_input.json",
             Advent::Second => "src/inputs/second_input.json",
             Advent::Third => "src/inputs/third_input.json",
-            Advent::Fourth => todo!(),
+            Advent::Fourth => "src/inputs/fourth_input.json",
             Advent::Fifth => todo!(),
             Advent::Sixth => todo!(),
             Advent::Seventh => todo!(),

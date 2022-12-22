@@ -63,12 +63,13 @@ You can also [Share] this puzzle.
 
 use crate::util;
 
-use std::{fs::File, io::{BufReader, BufRead}};
 use sorted_list::SortedList;
-
+use std::{
+    fs::File,
+    io::{BufRead, BufReader},
+};
 
 pub fn run(path: &str) {
-
     let file_content_as_string = util::get_input_as_string(path);
     let mut totals: Vec<usize> = vec![];
     let split = file_content_as_string.split("\n\n");
@@ -92,26 +93,28 @@ pub fn run(path: &str) {
     );
 }
 
-
 pub fn run_v2(path: &str) {
     let mut list: SortedList<i32, _> = SortedList::new();
 
     let file = File::open(path).unwrap();
     let reader = BufReader::new(file);
 
-    let mut acc:i32 = 0;
+    let mut acc: i32 = 0;
     for line in reader.lines() {
         let row = line.unwrap_or(String::new());
         if !row.is_empty() {
-            acc +=  row.parse::<i32>().unwrap();
+            acc += row.parse::<i32>().unwrap();
         } else {
             list.insert(acc, row);
-            acc  = 0;
+            acc = 0;
         }
     }
 
     list.insert(acc, "last".to_string());
 
-    println!("1st_v2: TOP IS {:?}", list.into_iter().rev().next().unwrap());
+    println!(
+        "1st_v2: TOP IS {:?}",
+        list.into_iter().rev().next().unwrap()
+    );
     //list.into_iter().rev().next().unwrap().0
 }
