@@ -8,33 +8,42 @@
         5 <= 8  &&  4 <= 8
 */
 
-use std::{io::BufRead, fmt::Display};
+use std::{fmt::Display, io::BufRead};
 
 use crate::util::{get_input_as_stream, get_input_as_string};
 
 pub fn run(path: &str) {
     let get_input_as_stream = get_input_as_stream(path);
 
-    let inclusives: (Vec<_>, Vec<_>)  = get_input_as_stream.lines()
+    let inclusives: (Vec<_>, Vec<_>) = get_input_as_stream
+        .lines()
         .map(|f| f.unwrap_or(String::from("0-0,99-99")))
-        .map(|f| f.split(",").zip(f.split(",").skip(1))
-                          .map(|g|(Assignment::from(g.0), Assignment::from(g.1))).next())
+        .map(|f| {
+            f.split(",")
+                .zip(f.split(",").skip(1))
+                .map(|g| (Assignment::from(g.0), Assignment::from(g.1)))
+                .next()
+        })
         .map(|f| overlaps(f.unwrap()))
         .partition(|f| true.eq(f));
 
-        // et sizes: String = format!("{}+{}={}", inclusives.0.len(), inclusives.1.len(), inclusives.0.len() + inclusives.1.len());
-    
-        //.filter(|f| true.eq(f))
-        //.count();
+    // et sizes: String = format!("{}+{}={}", inclusives.0.len(), inclusives.1.len(), inclusives.0.len() + inclusives.1.len());
 
-        println!("4th: assignments with an overlap are {}, without are {}, sum is {}", inclusives.0.len(), inclusives.1.len(), inclusives.0.len() + inclusives.1.len())
+    //.filter(|f| true.eq(f))
+    //.count();
+
+    println!(
+        "4th: assignments with an overlap are {}, without are {}, sum is {}",
+        inclusives.0.len(),
+        inclusives.1.len(),
+        inclusives.0.len() + inclusives.1.len()
+    )
 }
-
 
 #[derive(Debug)]
 struct Assignment {
     min: String,
-    max: String
+    max: String,
 }
 
 fn overlaps(input: (Assignment, Assignment)) -> bool {
@@ -45,14 +54,20 @@ fn overlaps(input: (Assignment, Assignment)) -> bool {
 
 impl From<&str> for Assignment {
     fn from(value: &str) -> Self {
-        let assignments = value.split("-").zip(value.split("-").skip(1))
-            .map(|item| Assignment {min: item.0.to_string(), max: item.1.to_string()})
-            .next().unwrap();
+        let assignments = value
+            .split("-")
+            .zip(value.split("-").skip(1))
+            .map(|item| Assignment {
+                min: item.0.to_string(),
+                max: item.1.to_string(),
+            })
+            .next()
+            .unwrap();
         assignments
     }
 }
 
-impl  Display for Assignment {
+impl Display for Assignment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}-{}", self.min, self.max)
     }

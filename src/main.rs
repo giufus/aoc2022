@@ -1,3 +1,5 @@
+extern crate core;
+
 mod first;
 mod fourth;
 mod fifth;
