@@ -1,7 +1,6 @@
-use std::cmp::{max, min};
+use std::cmp::{min};
 use std::collections::{VecDeque, HashMap};
 use std::collections::hash_map::Entry;
-use std::fmt::{Display, Formatter, write};
 
 use crate::util::get_input_as_string;
 
@@ -32,19 +31,17 @@ pub fn run(path: &str) {
 
     let input = get_input_as_string(path);
     let mut stacks: HashMap<usize, VecDeque<char>> = HashMap::new();
-    let commands_start: usize;
-    for (n, l) in input.lines().enumerate() {
-        let parsing_line = parse_matrix(l, n, &mut stacks);
-        if let (Err(p)) = parsing_line {
-            println!("Matrix parsed, exit at line {p}");
-            commands_start = p;
-            break;
-        }
-    }
 
-    for (n, l) in input.lines().enumerate() {
-        parse_command(l, n, &mut stacks);
-    }
+    let end_of_input = input.lines()
+        .enumerate()
+        .map(|f| parse_matrix(f.1, f.0, &mut stacks))
+        .position(|p| p.is_err())
+        .unwrap();
+
+    input.lines()
+        .filter(|s| s.starts_with("move"))
+        .enumerate()
+        .for_each(|f| parse_command(f.1, f.0, &mut stacks));
 
 
     let result: String = (1..10).into_iter()
@@ -52,10 +49,7 @@ pub fn run(path: &str) {
         .map(|f| f.unwrap().front().unwrap())
         .collect::<String>();
 
-    println!("5TH: {:?}", result);
-
-    let m: Matrix = Matrix {stks: stacks};
-    //println!("{:?}", m);
+    println!("5TH: Matrix parsed, exit at line {end_of_input}, result is {}", result);
 }
 
 fn parse_matrix(line: &str, number: usize, stacks: &mut HashMap<usize, VecDeque<char>>) -> Result<String, usize> {
@@ -68,16 +62,10 @@ fn parse_matrix(line: &str, number: usize, stacks: &mut HashMap<usize, VecDeque<
             let elem_num = i / 4 + 1;
             if *v == '[' {
                 //let stack_option: Option<&mut VecDeque<char>> = stacks.get_mut(&key);
-                let mut stack: &mut VecDeque<char> = match stacks.entry(elem_num) {
+                let stack: &mut VecDeque<char> = match stacks.entry(elem_num) {
                     Entry::Occupied(o) => o.into_mut(),
                     Entry::Vacant(v) => v.insert(VecDeque::new()),
                 };
-
-                /*if stack_option.is_none {
-                    stack = &mut VecDeque::new();
-                } else {
-                    stack = stack_option.unwrap();
-                }*/
 
                 let elem_lett = line_vect.get(i+1).unwrap();
                 // println!("stack {} item {}", elem_num, elem_lett);
@@ -96,6 +84,9 @@ fn parse_matrix(line: &str, number: usize, stacks: &mut HashMap<usize, VecDeque<
 fn parse_command(line: &str, number: usize, stacks: &mut HashMap<usize, VecDeque<char>>) {
 
     if line.starts_with("move") {
+
+        //println!("{line}");
+
         let filtered: Vec<usize> = line.split(" ")
             .map(|f| f.trim().to_string())
             .filter(|f| f.parse::<usize>().is_ok())
@@ -113,8 +104,8 @@ fn parse_command(line: &str, number: usize, stacks: &mut HashMap<usize, VecDeque
 
         let source = clone1.get_mut(source_key).unwrap();
         let destination = clone2.get_mut(destination_key).unwrap();
-        //println!("{source:?}");
-        //println!("{destination:?}");
+        //println!("source before {source:?}");
+        //println!("destination before {destination:?}");
 
         let to_move = filtered.get(0).unwrap();
         let source_len = source.len();
@@ -127,8 +118,8 @@ fn parse_command(line: &str, number: usize, stacks: &mut HashMap<usize, VecDeque
             destination.push_front(popped);
         }
 
-        //println!("{source:?}");
-        //println!("{destination:?}");
+        //println!("source after {source:?}");
+        //println!("destination after {destination:?}");
 
     }
 }

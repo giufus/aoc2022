@@ -49,7 +49,7 @@ pub fn run(path: &str) {
     println!("3rd: TOT PRIORITY IS {:?}", tot);
 
     // println!("# GROUPS = {:?}", &groups);
-    for (i, g) in groups.iter().enumerate() {
+    for (_, g) in groups.iter().enumerate() {
         // println!("{i} ITERATION");
 
         let g0 = g.get(0).unwrap().to_owned();
@@ -87,8 +87,8 @@ fn get_priority_v2(c: &char) -> u32 {
     let digit = *c as u32;
 
     let scaled = match digit {
-        a if c.to_owned().is_lowercase() => digit - 96,
-        A if c.to_owned().is_uppercase() => digit - 38,
+        _ if c.to_owned().is_lowercase() => digit - 96,
+        _ if c.to_owned().is_uppercase() => digit - 38,
         _ => 0,
     };
 

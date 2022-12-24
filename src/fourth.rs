@@ -10,7 +10,7 @@
 
 use std::{fmt::Display, io::BufRead};
 
-use crate::util::{get_input_as_stream, get_input_as_string};
+use crate::util::{get_input_as_stream};
 
 pub fn run(path: &str) {
     let get_input_as_stream = get_input_as_stream(path);
