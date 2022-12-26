@@ -1,10 +1,12 @@
+#![feature(iter_array_chunks)]
 extern crate core;
 
 mod first;
-mod fourth;
-mod fifth;
 mod second;
 mod third;
+mod fourth;
+mod fifth;
+mod sixth;
 mod util;
 
 use std::env;
@@ -40,7 +42,7 @@ fn main() {
             Advent::Third => third::run(adv_input),
             Advent::Fourth => fourth::run(adv_input),
             Advent::Fifth => fifth::run(adv_input),
-            Advent::Sixth => todo!(),
+            Advent::Sixth => sixth::run(adv_input),
             Advent::Seventh => todo!(),
             Advent::Eighth => todo!(),
             Advent::Ninth => todo!(),
@@ -68,6 +70,7 @@ fn main() {
         third::run(Advent::Third.get_input());
         fourth::run(Advent::Fourth.get_input());
         fifth::run(Advent::Fifth.get_input());
+        sixth::run(Advent::Sixth.get_input());
     }
 }
 
@@ -138,7 +141,7 @@ impl Advent {
             Advent::Third => "src/inputs/third_input.json",
             Advent::Fourth => "src/inputs/fourth_input.json",
             Advent::Fifth => "src/inputs/fifth_input.json",
-            Advent::Sixth => todo!(),
+            Advent::Sixth => "src/inputs/sixth_input.json",
             Advent::Seventh => todo!(),
             Advent::Eighth => todo!(),
             Advent::Ninth => todo!(),
