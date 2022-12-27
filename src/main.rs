@@ -1,6 +1,4 @@
 #![feature(iter_array_chunks)]
-extern crate core;
-
 mod first;
 mod second;
 mod third;
