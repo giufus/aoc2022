@@ -1,11 +1,15 @@
 #![feature(iter_array_chunks)]
+extern crate core;
+
 mod first;
 mod second;
 mod third;
 mod fourth;
 mod fifth;
 mod sixth;
+mod seventh;
 mod util;
+mod eight;
 
 use std::env;
 
@@ -41,8 +45,8 @@ fn main() {
             Advent::Fourth => fourth::run(adv_input),
             Advent::Fifth => fifth::run(adv_input),
             Advent::Sixth => sixth::run(adv_input),
-            Advent::Seventh => todo!(),
-            Advent::Eighth => todo!(),
+            Advent::Seventh => seventh::run(adv_input),
+            Advent::Eighth => eight::run(adv_input),
             Advent::Ninth => todo!(),
             Advent::Tenth => todo!(),
             Advent::Eleventh => todo!(),
@@ -69,6 +73,8 @@ fn main() {
         fourth::run(Advent::Fourth.get_input());
         fifth::run(Advent::Fifth.get_input());
         sixth::run(Advent::Sixth.get_input());
+        seventh::run(Advent::Seventh.get_input());
+        eight::run(Advent::Eighth.get_input());
     }
 }
 
@@ -140,8 +146,8 @@ impl Advent {
             Advent::Fourth => "src/inputs/fourth_input.json",
             Advent::Fifth => "src/inputs/fifth_input.json",
             Advent::Sixth => "src/inputs/sixth_input.json",
-            Advent::Seventh => todo!(),
-            Advent::Eighth => todo!(),
+            Advent::Seventh => "src/inputs/seventh_input.json",
+            Advent::Eighth => "src/inputs/eight_input.json",
             Advent::Ninth => todo!(),
             Advent::Tenth => todo!(),
             Advent::Eleventh => todo!(),
